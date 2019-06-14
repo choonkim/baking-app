@@ -9,7 +9,7 @@ public class RecipeAdapt {
     String id;
     String name;
     ArrayList<IngredientAdapt> ingredients;
-    ArrayList<DirectionsAdapt> directions;
+    ArrayList<DirectionsAdapt> steps;
     Integer servings;
     String image;
 
@@ -27,7 +27,7 @@ public class RecipeAdapt {
         return ingredients;
     }
     public ArrayList<DirectionsAdapt> getDirections() {
-        return directions;
+        return steps;
     }
     public Integer getServings() {
         return servings;

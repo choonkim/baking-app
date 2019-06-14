@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.bakingrecipeapp.Constants;
 import com.example.bakingrecipeapp.DeviceLayoutActivity;
+import com.example.bakingrecipeapp.DirectionsActivity;
 import com.example.bakingrecipeapp.R;
 import com.example.bakingrecipeapp.adapter.DirectionsAdapt;
 import com.example.bakingrecipeapp.adapter.RecipeAdapt;
@@ -26,7 +27,6 @@ import butterknife.ButterKnife;
 
 public class DirectionsMod extends RecyclerView.Adapter<DirectionsMod.StepViewHolder> {
 
-    private static final String TAG = DirectionsMod.class.getSimpleName();
     private RecipeAdapt mRecipe;
     private ArrayList<DirectionsAdapt> mDirectionsMods;
     private final DeviceLayoutActivity mParentActivity;
@@ -89,7 +89,7 @@ public class DirectionsMod extends RecyclerView.Adapter<DirectionsMod.StepViewHo
             } else {
                 // mobile
                 Context context = v.getContext();
-                Intent intent = new Intent(context, DirectionsFragment.class);
+                Intent intent = new Intent(context, DirectionsActivity.class);
                 intent.putExtra(Constants.STEP_VIDEO_URL_KEY, mRecipe.getDirections().get(getAdapterPosition()).getVideoURL());
                 intent.putExtra(Constants.STEP_DESCRIPTION_KEY, mRecipe.getDirections().get(getAdapterPosition()).getDescription());
                 intent.putExtra(Constants.STEP_LIST_KEY, Parcels.wrap(mRecipe.getDirections()));
