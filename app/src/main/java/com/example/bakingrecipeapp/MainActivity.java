@@ -1,6 +1,9 @@
 package com.example.bakingrecipeapp;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +33,19 @@ public class MainActivity extends AppCompatActivity implements JSONData.Callback
     @BindString(R.string.app_name)
     public String mAppName;
 
+    // espresso test
+    @Nullable
+    public IdlingResourceForTest mIdlingResource;
+
+    @VisibleForTesting
+    @NonNull
+    public IdlingResourceForTest getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new IdlingResourceForTest();
+        }
+        return mIdlingResource;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements JSONData.Callback
     @Override
     protected void onStart() {
         super.onStart();
-        JSONData.requestDataByVolley(this, MainActivity.this);
+        JSONData.requestDataByVolley(this, MainActivity.this, mIdlingResource);
     }
 
     @Override
@@ -83,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements JSONData.Callback
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.refresh_settings) {
-            JSONData.requestDataByVolley(this, MainActivity.this);
+            JSONData.requestDataByVolley(this, MainActivity.this, mIdlingResource);
             return true;
         }
         return super.onOptionsItemSelected(item);

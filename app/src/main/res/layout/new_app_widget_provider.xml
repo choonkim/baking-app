@@ -24,7 +24,7 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <TextView
+        <GridView
             android:id="@+id/ingredient_appwidget_text_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

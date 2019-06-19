@@ -1,6 +1,7 @@
 package com.example.bakingrecipeapp;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
@@ -29,8 +30,11 @@ public class JSONData {
         void onDone(ArrayList<RecipeAdapt> recipes);
     }
 
-    static void requestDataByVolley(Context context, final Callback callback) {
+    static void requestDataByVolley(Context context, final Callback callback, @Nullable final IdlingResourceForTest idlingResource) {
 
+        if (idlingResource != null) {
+            idlingResource.setIdleState(false);
+        }
 
         String url = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json";
 
@@ -86,6 +90,10 @@ public class JSONData {
                     Log.d(TAG, "-----------------------------------");
                 }
                 callback.onDone(mRecipes);
+
+                if (idlingResource != null) {
+                    idlingResource.setIdleState(true);
+                }
 
             }
         }, new Response.ErrorListener() {
